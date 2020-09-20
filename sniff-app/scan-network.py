@@ -101,6 +101,20 @@ def set_interval(func, sec):
     t.start()
     return t
 
+def getserial():
+  # Extract serial from cpuinfo file
+  cpuserial = "0000000000000000"
+  try:
+    f = open('/proc/cpuinfo','r')
+    for line in f:
+      if line[0:6]=='Serial':
+        cpuserial = line[10:26]
+    f.close()
+  except:
+    cpuserial = "ERROR000000000"
+ 
+  return cpuserial
+
 def sendData():
     global devices
     global api_key
@@ -109,7 +123,7 @@ def sendData():
         data = {
             'devices': devices,
             'api_key': api_key,
-            'device_key': 'A1'
+            'device_key': getserial()
         }
 
         data = json.dumps(data)
@@ -117,7 +131,7 @@ def sendData():
         #pprint(data)
 
         devices = []
-        requests.post(url= "http://boil.puhony.eu/rpi.php", data = data)
+        requests.post(url= "https://wifilocation.herokuapp.com/beacon", data = data)
     except: 
         pass
 
