@@ -70,9 +70,6 @@ def setPacket(mac, rssi, name):
         #pushni data do devices
         obj = {"mac": mac, "rssi": math.floor(rssiCOM/rssiCOUNT), "realRssi": rssi, "rssiCom": rssiCOM, "rssiCOUNT": rssiCOUNT, "lastSaw": math.floor(time.time()), "name": name}
         devices.append(obj)
-        if(mac == 'e0:d0:83:d6:2a:57'):
-            print obj
-
 
     #dev vypis data
     if(False):
@@ -120,18 +117,17 @@ def sendData():
     global api_key
 
     try:
-        data = {
+        new_data = {
             'devices': devices,
             'api_key': api_key,
             'device_key': getserial()
         }
 
-        data = json.dumps(data)
-
-        #pprint(data)
+        data = json.dumps(new_data)
+        headers = {'Content-type': 'application/json', 'Accept': 'application/json'}
 
         devices = []
-        requests.post(url= "https://wifilocation.herokuapp.com/beacon", data = data)
+        requests.post(url= "https://wifilocation.herokuapp.com/beacon", data = data, headers = headers)
     except: 
         pass
 
