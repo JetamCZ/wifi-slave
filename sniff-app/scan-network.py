@@ -7,6 +7,7 @@ import threading
 from pprint import pprint
 import json
 import scapy.all as scapy
+from scapy.all import RadioTap
 
 class deviceObj:
     def __init__(self, mac, rssi):  
@@ -28,20 +29,28 @@ def stop_monitor(interface):
 def process_packet(pkt):
     global devices
 
-    name = ""
-    try:
-        if(len(pkt.info) < 20):
-            name = str(pkt.info)
-    except AttributeError: 
-        pass
-
     if pkt.haslayer(scapy.Dot11):
-        layer = pkt.getlayer(scapy.Dot11)
-        
-        extra = pkt.notdecoded
-        rssi = -(256-ord(extra[-4:-3]))
+        #print('\t', pkt.summary())
+
+        name = ""
+        try:
+            if(len(pkt.info) < 20):
+                name = str(pkt.info)
+        except AttributeError:
+            pass
+
+        rssi = 0
+
+        try:
+            radiotap = pkt.getlayer(RadioTap)
+            rssi = radiotap.dBm_AntSignal
+        except:
+            rssi = 0
+
+        #PYTHON2 rssi = -(256-ord(extra[-3:-2]))
 
         if(rssi < 0 and rssi > -256):
+            layer = pkt.getlayer(scapy.Dot11)
             setPacket(layer.addr2, rssi, name)
 
 def setPacket(mac, rssi, name):

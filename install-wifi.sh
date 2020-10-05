@@ -1,3 +1,4 @@
+sudo dpkg --configure -a
 sudo apt update && sudo apt upgrade
 sudo apt install raspberrypi-kernel-headers aircrack-ng bc
 git clone https://github.com/aircrack-ng/rtl8188eus

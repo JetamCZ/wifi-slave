@@ -8,4 +8,6 @@ Tento projekt vzniká jako maturitní práce: Matěj Půhoný - 2020
 3) git clone https://github.com/JetamCZ/wifi.git
 4) cd wifi
 
-
+apt install python2 
+pip install requests
+pip install scapy
