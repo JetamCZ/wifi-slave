@@ -6,8 +6,7 @@ import requests
 import threading
 from pprint import pprint
 import json
-import scapy.all as scapy
-from scapy.all import RadioTap
+from scapy.all import *
 
 class deviceObj:
     def __init__(self, mac, rssi):  
@@ -29,29 +28,20 @@ def stop_monitor(interface):
 def process_packet(pkt):
     global devices
 
-    if pkt.haslayer(scapy.Dot11):
-        #print('\t', pkt.summary())
-
-        name = ""
-        try:
-            if(len(pkt.info) < 20):
-                name = str(pkt.info)
-        except AttributeError:
-            pass
-
-        rssi = 0
-
-        try:
+    try:        
+        if pkt.haslayer(Dot11):
             radiotap = pkt.getlayer(RadioTap)
             rssi = radiotap.dBm_AntSignal
-        except:
-            rssi = 0
 
-        #PYTHON2 rssi = -(256-ord(extra[-3:-2]))
+            layer = pkt.getlayer(Dot11)
 
-        if(rssi < 0 and rssi > -256):
-            layer = pkt.getlayer(scapy.Dot11)
-            setPacket(layer.addr2, rssi, name)
+            if pkt.haslayer(Dot11Beacon):
+                essid = str(pkt.getlayer(Dot11Elt).info)
+                setPacket(layer.addr1, 0, essid)
+            setPacket(layer.addr2, rssi, "")
+    except Exception as e:
+        #pass
+        print(e)
 
 def setPacket(mac, rssi, name):
     global devices
@@ -97,7 +87,7 @@ def main():
 
     #run
     start_monitor(interface)
-    scapy.sniff(iface=interface, prn=process_packet, store=0)
+    sniff(iface=interface, prn=process_packet, store=0)
 
 def set_interval(func, sec):
     def func_wrapper():
@@ -154,7 +144,7 @@ if __name__ == "__main__":
     print('Sniffer starts loading')
 
     #set props
-    interface = "wlan0"
+    interface = "wlan1"
 
     #?
     devices = []
