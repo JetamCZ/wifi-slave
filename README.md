@@ -11,3 +11,9 @@ Tento projekt vzniká jako maturitní práce: Matěj Půhoný - 2020
 apt install python2 
 pip install requests
 pip install scapy
+
+
+
+### AutoRun
+sudo crontab -e
+@reboot sudo python /home/pi/wifi/sniff-app/scan-network.py
