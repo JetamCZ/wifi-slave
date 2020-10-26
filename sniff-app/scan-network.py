@@ -26,10 +26,12 @@ def network_monitoring_for_visualization_version(pkt):
     try:
         if(pkt.haslayer(Dot11)):
             frame = Dot11Frame(pkt, iface=interface)
-            #print(frame)
 
-            if(frame.src):
-                setPacket(frame.src, frame.signal_strength, frame.ssid)
+            if(frame.src is not None):
+                if(frame.ssid is None):
+                    setPacket(frame.src, frame.signal_strength, "")
+                else:
+                    setPacket(frame.src, frame.signal_strength, frame.ssid)
 
     except Exception as e:
         print(e)
@@ -94,9 +96,10 @@ def sendData():
         }
 
         data = json.dumps(new_data)
+
         devices = []
         headers = {'Content-type': 'application/json', 'Accept': 'application/json'}
-        requests.post(url= "https://wifilocation.herokuapp.com/mirror", data = data, headers = headers)
+        requests.post(url= "http://192.168.1.126:8000/beacon", data = data, headers = headers)
     except Exception as e: 
         print(e)
 
