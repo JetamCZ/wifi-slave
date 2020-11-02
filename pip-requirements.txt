@@ -1,0 +1,6 @@
+python-engineio
+scapy
+os
+atexit
+sys
+threading

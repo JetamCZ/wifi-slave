@@ -11,7 +11,7 @@ Tento projekt vzniká jako maturitní práce: Matěj Půhoný - 2020
 apt install python2 
 pip install requests
 pip install scapy
-
+sudo apt install python-socketio
 
 
 ### AutoRun
