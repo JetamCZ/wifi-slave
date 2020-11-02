@@ -73,7 +73,7 @@ def main():
     sio.connect('https://wifilocation.herokuapp.com/')
 
     start_monitor(interface)
-    sniff(iface=interface, prn=network_monitoring_for_visualization_version)
+    sniff(iface=interface, prn=network_monitoring_for_visualization_version, store=0)
 
 if __name__ == '__main__':
     interface = 'wlan1'
