@@ -18,7 +18,6 @@ def stop_monitor(interface):
     os.system("ifconfig "+interface+" up")
 
 def network_monitoring_for_visualization_version(pkt):
-
     try:
         if(pkt.haslayer(Dot11)):
             frame = Dot11Frame(pkt, iface=interface)
@@ -28,7 +27,8 @@ def network_monitoring_for_visualization_version(pkt):
                     sio.emit('data', {'mac': frame.src, 'rssi': frame.signal_strength, 'name': '', 'lastSaw': math.floor(time.time())})
                 else:
                     sio.emit('data', {'mac': frame.src, 'rssi': frame.signal_strength, 'name': frame.ssid, 'lastSaw': math.floor(time.time())})
-
+        else:
+            print(pkt.summary())
     except Exception as e:
         print(e)
 
