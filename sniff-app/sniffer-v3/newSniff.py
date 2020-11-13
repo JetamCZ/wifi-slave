@@ -1,10 +1,18 @@
 #! /usr/local/bin/python3.5
 
 import socket
+import os
 import struct
 from radiotap import radiotap
 
+def start_monitor(interface): 
+  os.system("ifconfig "+interface+" down")
+  os.system("iwconfig "+interface+" mode monitor")
+  os.system("ifconfig "+interface+" up")
+
+
 def main():
+    start_monitor('wlan1')
     key = getserial()
 
     lastMac = ""
