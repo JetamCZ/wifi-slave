@@ -91,7 +91,7 @@ def send_measurements_to_server(df):
     for _, row in df.iterrows():
         devices.append({
             'mac': row["Station MAC"], 
-            'rssi': row["Power"], 
+            'rssi': int(row["Power"]), 
             'name': "", 
             'lastSaw': str(row["Last time seen"])
             })
