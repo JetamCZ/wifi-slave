@@ -24,8 +24,10 @@ def network_monitoring_for_visualization_version(pkt):
 
             if(frame.src is not None):
                 if(frame.ssid is None):
+                    #print({'mac': frame.src, 'rssi': frame.signal_strength, 'name': '', 'lastSaw': math.floor(time.time())})
                     sio.emit('data', {'mac': frame.src, 'rssi': frame.signal_strength, 'name': '', 'lastSaw': math.floor(time.time())})
                 else:
+                    #print({'mac': frame.src, 'rssi': frame.signal_strength, 'name': frame.ssid, 'lastSaw': math.floor(time.time())})
                     sio.emit('data', {'mac': frame.src, 'rssi': frame.signal_strength, 'name': frame.ssid, 'lastSaw': math.floor(time.time())})
         else:
             print(pkt.summary())
@@ -52,7 +54,7 @@ def connect():
     print('connected to server')
 \
 @sio.event
-def connect_error():
+def connect_error(err):
     print("The connection failed!")
 
 @sio.event
@@ -73,7 +75,7 @@ def main():
     sio.connect('https://wifilocation.herokuapp.com/')
 
     start_monitor(interface)
-    sniff(iface=interface, prn=network_monitoring_for_visualization_version, store=0)
+    sniff(iface=interface, prn=network_monitoring_for_visualization_version, store=False)
 
 if __name__ == '__main__':
     interface = 'wlan1'
