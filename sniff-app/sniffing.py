@@ -35,7 +35,7 @@ def start_wifi_monitoring():
     print("Starting background Wifi monitoring ...")
     os.system('sudo rm -rf *.csv')
 
-    airodump_command = "sudo airodump-ng --output-format csv --write {} {}".format(LOG_FILE, wifi_interface)
+    airodump_command = "sudo airodump-ng --output-format csv --write {} {}".format(LOG_FILE, args.wifi_interface)
     subprocess.Popen(airodump_command.split(" "), shell=False, stdout=FNULL, stderr=subprocess.STDOUT)
 
 
@@ -123,9 +123,9 @@ def main():
         return
 
     #START monitor mode
-    os.system("ifconfig "+wifi_interface+" down")
-    os.system("iwconfig "+wifi_interface+" mode monitor")
-    os.system("ifconfig "+wifi_interface+" up")
+    os.system("ifconfig "+args.wifi_interface+" down")
+    os.system("iwconfig "+args.wifi_interface+" mode monitor")
+    os.system("ifconfig "+args.wifi_interface+" up")
 
     #register exhit handler
     atexit.register(exit_handler)
