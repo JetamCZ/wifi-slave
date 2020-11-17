@@ -30,5 +30,5 @@ sudo python3 ./wifi/sniff-app/sniffing.py -w wlan1
 sudo crontab -e
 
 #přidáme do nastavení spuštění majáku
-@reboot sudo python3 /home/pi/wifi/sniff-app/sniffing.py
+@reboot sudo python3 /home/pi/wifi/sniff-app/sniffing.py -w wlan1
 ```
