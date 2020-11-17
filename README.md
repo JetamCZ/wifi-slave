@@ -21,20 +21,8 @@ sudo apt install python python3-pandas
 
 4 - spuštění a majáku
 ```
-sudo python3 ./wifi/sniff-app/sniffing.py
+sudo python3 ./wifi/sniff-app/sniffing.py -w wlan1
 ```
-
----
-
-1) nastavení wifi - sudo raspi-config
-2) instalace git `sudo apt install git`
-3) git clone https://github.com/JetamCZ/wifi.git
-4) cd wifi
-
-apt install python2 
-pip install requests
-pip install scapy
-
 
 ### AutoRun (cron)
 ```
