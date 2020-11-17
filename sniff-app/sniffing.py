@@ -6,6 +6,7 @@ from io import StringIO
 import pandas as pd
 import requests
 import json
+import argparse
 
 interface = "wlan1"
 
@@ -113,6 +114,17 @@ def send_measurements_to_server(df):
         print(e)
 
 def main():
+    parser = argparse.ArgumentParser(description='Monitor nearby Wifi devices that are connected to the same network')
+    parser.add_argument('-w', '--wifi-interface', required=True, help='Name of the Wifi network interface e.g. wlan0 or wlp3s0')
+
+    args = parser.parse_args()
+
+    print(args)
+
+    if os.getuid() != 0:
+        print("you must run sudo!")
+        return
+
     #START monitor mode
     os.system("ifconfig "+interface+" down")
     os.system("iwconfig "+interface+" mode monitor")

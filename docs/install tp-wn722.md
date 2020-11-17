@@ -6,7 +6,7 @@
 
 *aktualizace a upgrade stávajících balíčků RPI*
 
-`sudo apt install raspberrypi-kernel-headers aircrack-ng bc`
+`sudo apt install raspberrypi-kernel-headers aircrack-ng bc git`
 
 *instalace potřebných dependencies*
 
@@ -19,6 +19,9 @@ cd rtl8188eus
 sudo -i
 echo "blacklist r8188eu" > "/etc/modprobe.d/realtek.conf"
 exit
+
+# možná bude zapotřebí restartovat zařízení
+
 make
 sudo make install
 ```

@@ -3,6 +3,29 @@
 Tento projekt vzniká jako maturitní práce: Matěj Půhoný - 2020
 
 ### Instalace na RPI lite
+1 - nastavení RPI wifi sudo raspi-config (nastavení wifi a ssh), 
+ze základu má rasbian přihlašovací údaje `user:pi passport:raspberry` (bacha na anglickou klávesnici)
+```
+sudo raspi-config
+```
+
+2 - Nainstalování driverů pro wifi anténu. (v docs souborech naleznete návod na instalaci pro TP Link TP-WN-722N)
+
+3 - nainstalování potřebných dependencies
+```
+sudo apt install python python3-pandas
+```
+
+4 - stažení 
+`git clone https://github.com/JetamCZ/wifi.git`
+
+4 - spuštění a majáku
+```
+sudo python3 ./wifi/sniff-app/sniffing.py
+```
+
+---
+
 1) nastavení wifi - sudo raspi-config
 2) instalace git `sudo apt install git`
 3) git clone https://github.com/JetamCZ/wifi.git
@@ -11,9 +34,13 @@ Tento projekt vzniká jako maturitní práce: Matěj Půhoný - 2020
 apt install python2 
 pip install requests
 pip install scapy
-sudo apt install python-socketio
 
 
-### AutoRun
+### AutoRun (cron)
+```
+# otevře cron nastavení
 sudo crontab -e
-@reboot sudo python /home/pi/wifi/sniff-app/scan-network.py
+
+#přidáme do nastavení spuštění majáku
+@reboot sudo python3 /home/pi/wifi/sniff-app/sniffing.py
+```
