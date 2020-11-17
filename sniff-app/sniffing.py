@@ -116,7 +116,7 @@ def main():
 
     args = parser.parse_args()
 
-    print(args)
+    print(args.wifi_interface)
 
     if os.getuid() != 0:
         print("you must run sudo!")
