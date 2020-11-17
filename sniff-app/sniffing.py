@@ -16,6 +16,7 @@ UPDATE_INTERVAL = 30
 MAXIMUM_AGE = 5 * 60
 SERVER_UNREACHABLE_DELAY = 10
 
+args = {}
 
 def getserial():
   # Extract serial from cpuinfo file
@@ -111,6 +112,8 @@ def send_measurements_to_server(df):
         print(e)
 
 def main():
+    global args
+
     parser = argparse.ArgumentParser(description='Monitor nearby Wifi devices that are connected to the same network')
     parser.add_argument('-w', '--wifi-interface', required=True, help='Name of the Wifi network interface e.g. wlan0 or wlp3s0')
 
