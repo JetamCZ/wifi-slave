@@ -7,9 +7,6 @@ import pandas as pd
 import requests
 import json
 import argparse
-
-interface = "wlan1"
-
 LOG_FILE = 'airodump-log'
 FNULL = open(os.devnull, 'w')
 
@@ -38,7 +35,7 @@ def start_wifi_monitoring():
     print("Starting background Wifi monitoring ...")
     os.system('sudo rm -rf *.csv')
 
-    airodump_command = "sudo airodump-ng --output-format csv --write {} {}".format(LOG_FILE, interface)
+    airodump_command = "sudo airodump-ng --output-format csv --write {} {}".format(LOG_FILE, wifi_interface)
     subprocess.Popen(airodump_command.split(" "), shell=False, stdout=FNULL, stderr=subprocess.STDOUT)
 
 
@@ -126,9 +123,9 @@ def main():
         return
 
     #START monitor mode
-    os.system("ifconfig "+interface+" down")
-    os.system("iwconfig "+interface+" mode monitor")
-    os.system("ifconfig "+interface+" up")
+    os.system("ifconfig "+wifi_interface+" down")
+    os.system("iwconfig "+wifi_interface+" mode monitor")
+    os.system("ifconfig "+wifi_interface+" up")
 
     #register exhit handler
     atexit.register(exit_handler)
