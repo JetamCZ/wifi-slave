@@ -108,7 +108,7 @@ def send_measurements_to_server(df):
         print("data", data)
 
         devices = []
-        requests.post(url= "http://192.168.1.126:8000/beacon", data = data, headers = headers)
+        requests.post(url= "https://wifilocation.herokuapp.com/beacon", data = data, headers = headers)
     except Exception as e: 
         print(e)
 
@@ -141,7 +141,7 @@ def main():
         except Exception as e:
             print(e)
 
-        time.sleep(3)
+        time.sleep(2)
 
 
 if __name__ == '__main__':
