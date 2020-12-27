@@ -107,7 +107,7 @@ def send_measurements_to_server(df):
         print("data", data)
 
         devices = []
-        requests.post(url= "https://wifilocation.herokuapp.com/beacon", data = data, headers = headers)
+        requests.post(url= "http://api.wifi.puhony.eu/beacon", data = data, headers = headers)
     except Exception as e: 
         print(e)
 

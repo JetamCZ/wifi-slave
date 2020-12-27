@@ -13,7 +13,7 @@ sudo raspi-config
 
 3 - nainstalování potřebných dependencies
 ```
-sudo apt install python python3-pandas
+sudo apt install python python3-pandas python3-requests
 ```
 
 4 - stažení 
