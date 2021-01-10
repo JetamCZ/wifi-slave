@@ -4,7 +4,10 @@ from dot11_frame import Dot11Frame
 
 def doData(pkt): 
     try: 
-        print(pkt.summary)
+        if(pkt.haslayer(Dot11)):
+            frame = Dot11Frame(pkt, iface=interface)
+
+            print(frame.src, frame.signal_strength)
     except Exception as e:
         print(e)
 
