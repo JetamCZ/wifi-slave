@@ -7,7 +7,7 @@ def doData(pkt):
         if(pkt.haslayer(Dot11)):
             frame = Dot11Frame(pkt, iface="wlan1")
 
-            if(frame.src === "e0:d0:83:d6:2a:57" or rame.dst === "e0:d0:83:d6:2a:57")
+            if(frame.src == "e0:d0:83:d6:2a:57" or rame.dst == "e0:d0:83:d6:2a:57")
                 print(frame.src, frame.dst, frame.signal_strength, frame.ssid)
         
     except Exception as e:
