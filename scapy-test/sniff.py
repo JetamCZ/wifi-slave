@@ -5,7 +5,7 @@ from dot11_frame import Dot11Frame
 def doData(pkt): 
     try: 
         if(pkt.haslayer(Dot11)):
-            frame = Dot11Frame(pkt, iface=interface)
+            frame = Dot11Frame(pkt, iface="wlan1")
 
             print(frame.src, frame.signal_strength)
     except Exception as e:
