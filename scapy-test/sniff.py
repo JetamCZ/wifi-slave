@@ -7,7 +7,7 @@ def doData(pkt):
         if(pkt.haslayer(Dot11)):
             frame = Dot11Frame(pkt, iface="wlan1")
 
-            print(frame.src, frame.dst, frame.macs, frame.signal_strength, frame.ssid)
+            print(frame.src, frame.dst, frame.signal_strength, frame.ssid)
         
     except Exception as e:
         print(e)
