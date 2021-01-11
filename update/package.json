@@ -1,0 +1,16 @@
+{
+  "name": "update",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "update": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cron": "^1.8.2",
+    "node-fetch": "^2.6.1",
+    "uncaught": "0.0.5"
+  }
+}
