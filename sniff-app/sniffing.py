@@ -36,7 +36,7 @@ def start_wifi_monitoring():
     print("Starting background Wifi monitoring ...")
     os.system('sudo rm -rf *.csv')
 
-    airodump_command = "sudo airodump-ng --output-format csv --write {} {}".format(LOG_FILE, args.wifi_interface)
+    airodump_command = "sudo airodump-ng --berlin 3 --write-interval 3 --output-format csv --write {} {}".format(LOG_FILE, args.wifi_interface)
     subprocess.Popen(airodump_command.split(" "), shell=False, stdout=FNULL, stderr=subprocess.STDOUT)
 
 
