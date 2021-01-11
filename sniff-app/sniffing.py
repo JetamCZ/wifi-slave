@@ -107,7 +107,7 @@ def send_measurements_to_server(df):
         print("data", data)
 
         devices = []
-        requests.post(url= "https://api-wifi.jetam.eu//data", data = data, headers = headers)
+        requests.post(url= "https://api-wifi.jetam.eu/data", data = data, headers = headers)
     except Exception as e: 
         print(e)
 
