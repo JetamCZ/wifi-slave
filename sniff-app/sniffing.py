@@ -114,46 +114,50 @@ def send_measurements_to_server(df):
 def main():
     global args
 
-    parser = argparse.ArgumentParser(description='Monitor nearby Wifi devices that are connected to the same network')
-    parser.add_argument('-w', '--wifi-interface', required=True, help='Name of the Wifi network interface e.g. wlan0 or wlp3s0')
+    try:
+        parser = argparse.ArgumentParser(description='Monitor nearby Wifi devices that are connected to the same network')
+        parser.add_argument('-w', '--wifi-interface', required=True, help='Name of the Wifi network interface e.g. wlan0 or wlp3s0')
 
-    args = parser.parse_args()
+        args = parser.parse_args()
 
-    print(args.wifi_interface)
+        print(args.wifi_interface)
 
-    if os.getuid() != 0:
-        print("you must run sudo!")
-        return
+        if os.getuid() != 0:
+            print("you must run sudo!")
+            return
 
-    #START monitor mode
-    os.system("ifconfig "+args.wifi_interface+" down")
-    os.system("iwconfig "+args.wifi_interface+" mode monitor")
-    os.system("ifconfig "+args.wifi_interface+" up")
+        #START monitor mode
+        os.system("ifconfig "+args.wifi_interface+" down")
+        os.system("iwconfig "+args.wifi_interface+" mode monitor")
+        os.system("ifconfig "+args.wifi_interface+" up")
 
-    #register exhit handler
-    atexit.register(exit_handler)
+        #register exhit handler
+        atexit.register(exit_handler)
 
-    #start airodump
-    start_wifi_monitoring()
+        #start airodump
+        start_wifi_monitoring()
 
-    #start reading
-    while True:
-        try:
-            if os.path.isfile(LOG_FILE + '-01.csv'):
-                df = read_df()
-                df_stations = get_stations(df)
+        #start reading
+        while True:
+            try:
+                if os.path.isfile(LOG_FILE + '-01.csv'):
+                    df = read_df()
+                    df_stations = get_stations(df)
 
-                if len(df_stations) > 0:
-                    send_measurements_to_server(df_stations)
+                    if len(df_stations) > 0:
+                        send_measurements_to_server(df_stations)
+                    else:
+                        print("No nearby connected Wifi devices found")
+
                 else:
-                    print("No nearby connected Wifi devices found")
+                    print("NO FILE")
+            except Exception as e:
+                print(e)
 
-            else:
-                print("NO FILE")
-        except Exception as e:
-            print(e)
-
-        time.sleep(2)
+            time.sleep(2)
+    except Exception as exc:
+        time.sleep(5)
+        main()
 
 
 if __name__ == '__main__':
