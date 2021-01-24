@@ -104,7 +104,8 @@ def send_measurements_to_server(df):
         data = json.dumps(new_data)
         headers = {'Content-type': 'application/json', 'Accept': 'application/json'}
 
-        print("data", data)
+        #print("data", data)
+        print("Sending data to API")
 
         devices = []
         requests.post(url= "https://api-wifi.jetam.eu/data", data = data, headers = headers)
@@ -120,7 +121,7 @@ def main():
 
         args = parser.parse_args()
 
-        print(args.wifi_interface)
+        print('Sniffing with: ' + args.wifi_interface)
 
         if os.getuid() != 0:
             print("you must run sudo!")
@@ -156,6 +157,7 @@ def main():
 
             time.sleep(2)
     except Exception as exc:
+        print(exc)
         time.sleep(5)
         main()
 
