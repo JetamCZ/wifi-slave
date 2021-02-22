@@ -20,7 +20,7 @@ def getserial():
 def doData(pkt): 
     try: 
         if(pkt.haslayer(Dot11)):
-            frame = Dot11Frame(pkt, iface="wlan1")
+            frame = Dot11Frame(pkt, iface="wlan0")
 
             print(frame.src, frame.dst, frame.signal_strength, frame.ssid)
 
@@ -43,11 +43,11 @@ def doData(pkt):
         print(e)
 
 def main():
-    os.system("ifconfig wlan1 down")
-    os.system("iwconfig wlan1 mode monitor")
-    os.system("ifconfig wlan1 up")
+    os.system("ifconfig wlan0 down")
+    os.system("iwconfig wlan0 mode monitor")
+    os.system("ifconfig wlan0 up")
 
-    sniff(iface="wlan1", prn=doData)
+    sniff(iface="wlan0", prn=doData)
 
 
 if __name__ == '__main__':
