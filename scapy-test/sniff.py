@@ -1,7 +1,7 @@
 import os
 from scapy.all import *
 from dot11_frame import Dot11Frame
-import requests
+#import requests
 
 def getserial():
   # Extract serial from cpuinfo file
@@ -27,8 +27,8 @@ def doData(pkt):
             new_data = {
                 'devices': [
                     {
-                        rssi: frame.signal_strength,
-                        mac: frame.src
+                        'rssi': frame.signal_strength,
+                        'mac': frame.src
                     }
                 ],
                 'device_key': getserial()
@@ -37,7 +37,7 @@ def doData(pkt):
             data = json.dumps(new_data)
             headers = {'Content-type': 'application/json', 'Accept': 'application/json'}
 
-            requests.post(url= "https://api-wifi.puhony.eu/data", data = data, headers = headers)
+            #requests.post(url= "https://api-wifi.puhony.eu/data", data = data, headers = headers)
         
     except Exception as e:
         print(e)
