@@ -1,6 +1,7 @@
 import os
 from scapy.all import *
 from dot11_frame import Dot11Frame
+import json
 #import requests
 
 def getserial():
@@ -22,22 +23,23 @@ def doData(pkt):
         if(pkt.haslayer(Dot11)):
             frame = Dot11Frame(pkt, iface="wlan0")
 
-            print(frame.src, frame.dst, frame.signal_strength, frame.ssid)
+            if(frame.src == "f2:ec:8d:a5:22:dc"):
+                print(frame.src, frame.dst, frame.signal_strength, frame.ssid)
 
-            new_data = {
-                'devices': [
-                    {
-                        'rssi': frame.signal_strength,
-                        'mac': frame.src
-                    }
-                ],
-                'device_key': getserial()
-            }
+                new_data = {
+                    'devices': [
+                        {
+                            'rssi': frame.signal_strength,
+                            'mac': frame.src
+                        }
+                    ],
+                    'device_key': getserial()
+                }
 
-            data = json.dumps(new_data)
-            headers = {'Content-type': 'application/json', 'Accept': 'application/json'}
+                data = json.dumps(new_data)
+                headers = {'Content-type': 'application/json', 'Accept': 'application/json'}
 
-            #requests.post(url= "https://api-wifi.puhony.eu/data", data = data, headers = headers)
+                #requests.post(url= "https://api-wifi.puhony.eu/data", data = data, headers = headers)
         
     except Exception as e:
         print(e)
